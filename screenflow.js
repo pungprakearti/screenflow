@@ -1,65 +1,52 @@
-$(document).ready(() => {
-  const $CONT = $('.container');
+// $(document).ready(() => {
+const $CONT = $('.container');
+const $DBGUI = $('<div>').attr('class', 'dbgui');
 
-  //create page
-  let $SCREEN = $('<div>').attr('class', 'screen');
-  $SCREEN.attr('id', 's001');
-  $CONT.append($SCREEN);
+//create page
+let $SCREEN = $('<div>').attr('class', 'screen');
+$SCREEN.attr('id', 's001');
+$CONT.append($SCREEN);
 
-  //keyboard key to move page out of window
-  $(document).keydown(e => {
-    switch (e.which) {
-      case 37: //left
-        $SCREEN.css({ transform: 'translateX(-70vw)' });
-        // $SCREEN.css({ left: '10vh' });
+//append debug gui
+$CONT.append($DBGUI);
+
+//keyboard key to move page out of window
+$(document).keydown(e => {
+  switch (e.which) {
+    case 37: //left
+      if ($SCREEN.css('right') !== '-450px') {
         console.log('left arrow press');
-        logCoords($SCREEN);
-        break;
+        $SCREEN.css({ top: '', right: '', bottom: '', left: '' });
+        $SCREEN.animate({ right: '-450px' }, 5, 'linear');
+      }
+      break;
 
-      case 38: // up
-        $SCREEN.css({ transform: 'translateY(-70vh)' });
+    case 38: // up
+      if ($SCREEN.css('bottom') !== '-350px') {
         console.log('up arrow press');
-        logCoords($SCREEN);
-        break;
+        $SCREEN.css({ top: '', right: '', bottom: '', left: '' });
+        $SCREEN.animate({ bottom: '-350px' }, 5, 'linear');
+      }
+      break;
 
-      case 39: // right
-        $SCREEN.css({ transform: 'translateX(70vw)' });
+    case 39: // right
+      if ($SCREEN.css('left') !== '-450px') {
         console.log('right arrow press');
-        logCoords($SCREEN);
-        break;
+        $SCREEN.css({ top: '', right: '', bottom: '', left: '' });
+        $SCREEN.animate({ left: '-450px' }, 5, 'linear');
+      }
+      break;
 
-      case 40: // down
-        $SCREEN.css({ transform: 'translateY(70vh)' });
+    case 40: // down
+      if ($SCREEN.css('top') !== '-350px') {
         console.log('down arrow press');
-        logCoords($SCREEN);
-        break;
+        $SCREEN.css({ top: '', right: '', bottom: '', left: '' });
+        $SCREEN.animate({ top: '-350px' }, 5, 'linear');
+      }
+      break;
 
-      default:
-        return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
-  });
-
-  //create page that comes into window
-  // let $NEWSCREEN = $('<div>').attr('class', 'screen');
-  // $NEWSCREEN.attr('id', 's002');
-  // $NEWSCREEN.css({ transform: 'translateX(70vh)' });
-  // $CONT.append($NEWSCREEN);
-  //move page into window
-
-  function logCoords($obj) {
-    let pos = $obj.position();
-    console.log(
-      'left: ',
-      Math.floor(pos.left),
-      '\nright: ',
-      Math.floor(pos.top)
-    );
-    console.log(
-      'window\nwidth: ',
-      window.innerWidth,
-      '\nheight: ',
-      window.innerHeight
-    );
+    default:
+      return; // exit this handler for other keys
   }
+  e.preventDefault();
 });
