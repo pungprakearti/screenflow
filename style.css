@@ -20,17 +20,43 @@ body {
 
 .screen {
   position: absolute;
-  width: 500px;
-  height: 400px;
-  border: 5px solid teal;
+  text-align: center;
+  width: 100px;
+  height: 50px;
   border-radius: 15px;
   background-color: lightseagreen;
   transition: all 0.1s linear;
 }
 
-.dbgui {
+.screen-l {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  color: red;
+  text-align: center;
+  width: 100px;
+  height: 50px;
+  border-radius: 15px;
+  background-color: lightseagreen;
+  transition: all 0.1s linear;
+  left: 0;
+}
+
+.screen-r {
+  position: absolute;
+  text-align: center;
+  width: 100px;
+  height: 50px;
+  border-radius: 15px;
+  background-color: lightseagreen;
+  transition: all 0.1s linear;
+  right: 0;
+}
+
+.screen-above {
+  position: absolute;
+  text-align: center;
+  width: 100px;
+  height: 50px;
+  border-radius: 15px;
+  background-color: lightseagreen;
+  transition: all 0.1s linear;
+  top: 0;
 }
