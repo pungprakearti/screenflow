@@ -23,7 +23,7 @@ let screens = [
   },
   {
     name: 'signUp',
-    out: ['register']
+    out: ['register', 'a', 'b', 'c']
   },
   {
     name: 'newestImages',
@@ -31,7 +31,7 @@ let screens = [
   },
   {
     name: 'newPostApp',
-    out: []
+    out: ['test']
   },
   {
     name: 'validation',
@@ -54,9 +54,23 @@ let searchTerm = 'signUp';
 
 function createFocus(searchTerm) {
   let focus = document.createElement('div');
-  focus.className = `${searchTerm} screen`;
-  focus.textContent = searchTerm;
+  let h4 = document.createElement('h4');
+  let h4Text = document.createTextNode(searchTerm);
+  let p = document.createElement('p');
+  let lorem =
+    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae aperiam distinctio possimus quos dolore quidem, laboriosam rem iste reiciendis aliquam! Alias iste omnis eos itaque provident quasi non consectetur quia?';
+  let pText = document.createTextNode(lorem.repeat(5));
+
+  p.appendChild(pText);
+  h4.appendChild(h4Text);
+  focus.appendChild(h4);
+  focus.appendChild(p);
+
+  focus.className = `screen screen-focus`;
+  focus.id = searchTerm;
+
   CONTAINER.appendChild(focus);
+
   return focus;
 }
 
@@ -80,8 +94,9 @@ function createNextToFocus(next, idx, dir) {
 
   //create div
   let result = document.createElement('div');
-  result.className = `${next[0].out[idx + delta]} screen-${dir}`;
+  result.className = `screen screen-${dir} node`;
   result.textContent = next[0].out[idx + delta];
+  result.id = next[0].out[idx + delta];
   CONTAINER.appendChild(result);
   return result;
 }
@@ -90,8 +105,9 @@ function createNextToFocus(next, idx, dir) {
 
 function createAbove(inOutOf) {
   let result = document.createElement('div');
-  result.className = `${inOutOf[0].name} screen-above`;
+  result.className = `screen screen-above node`;
   result.textContent = inOutOf[0].name;
+  result.id = inOutOf[0].name;
   CONTAINER.appendChild(result);
   return result;
 }
@@ -116,18 +132,40 @@ function getFocusObj(searchTerm) {
   })[0];
 }
 
+//map through focus obj out and create nodes
+function createBottom(focusObj) {
+  let bottomCont = document.createElement('div');
+  bottomCont.className = 'bottom-container';
+
+  //map through outs of focus and create divs
+  focusObj.out.map(o => {
+    let div = document.createElement('div');
+    div.className = 'screen screen-bottom node';
+    div.textContent = o;
+    div.id = o;
+    bottomCont.appendChild(div);
+  });
+  CONTAINER.appendChild(bottomCont);
+}
+
+/**
+ *
+ * Need to create lines for graph
+ *
+ * lines will be furthest back component
+ *
+ *
+ *
+ *
+ *
+ */
+
+/** create page */
 let focusElem = createFocus(searchTerm);
 let focusObj = getFocusObj(searchTerm);
 let inOutOf = outOf(searchTerm);
-let aboveElem = createAbove(inOutOf);
-createSides();
-
-//map through focus obj out and create nodes
-function createBottom(focusObj) {
-  focusObj.out.map(o => {
-    // [o] = document.createElement('div');
-    console.log(o);
-  });
+if (inOutOf.length > 0) {
+  let aboveElem = createAbove(inOutOf);
+  createSides();
 }
-
 createBottom(focusObj);
